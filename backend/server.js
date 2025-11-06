@@ -8,10 +8,7 @@ require('dotenv').config();
 const app = express();
 
 // ========================================
-// THE FIX: Use the standard cors middleware FIRST
-// ========================================
-app.use(cors()); // This handles all preflight OPTIONS requests automatically
-
+app.use(cors()); 
 // Other middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, '../frontend')));
@@ -103,7 +100,6 @@ app.post('/api/analyze/:dimension', async (req, res) => {
   }
 });
 
-// ... your PDF generation endpoint stays here ...
 
 
 // ========================================
@@ -114,10 +110,10 @@ app.post('/api/generate-pdf', async (req, res) => {
     // CORRECTED: Match the data structure from your app.js
     const { content, results, timestamp, footerText } = req.body;
     
-    console.log('🔍 PDF generation request received');
+    console.log('PDF generation request received');
     
     if (!content || !results) {
-      console.error('❌ Missing required data: content or results');
+      console.error('Missing required data: content or results');
       return res.status(400).json({ 
         error: 'Missing content or results in request body' 
       });
@@ -196,14 +192,14 @@ app.post('/api/generate-pdf', async (req, res) => {
     
     const pdfBuffer = Buffer.from(doc.output('arraybuffer'));
     
-    console.log('✅ PDF generated successfully');
+    console.log('PDF generated successfully');
     
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename="privacy-analysis.pdf"');
     res.send(pdfBuffer);
     
   } catch (error) {
-    console.error('❌ PDF generation error:', error);
+    console.error('PDF generation error:', error);
     res.status(500).json({ error: 'Failed to generate PDF: ' + error.message });
   }
 });
