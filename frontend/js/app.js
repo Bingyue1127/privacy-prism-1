@@ -3,9 +3,21 @@
 // ========================================
 
 // API Configuration
-const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? 'http://localhost:3000' 
-  :''; 
+// ========================================
+// API Configuration
+// ========================================
+const API_BASE_URL = (() => {
+  const host = window.location.hostname;
+
+  if (host === 'localhost' || host === '127.0.0.1') {
+    // Local development: backend runs on port 5000
+    return 'http://localhost:5000';
+  }
+
+  // Deployed environment (e.g. Vercel) – same domain as frontend
+  return window.location.origin;
+})();
+
 
 // State management
 const state = {
