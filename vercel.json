@@ -1,20 +1,15 @@
-{
-
-  "version": 2,
-  "builds": [
     {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/backend/server.js"
-    }
-  ],
-
-  "headers": [
+      "rewrites": [
+        {
+          "source": "/api/(.*)",
+          "destination": "/backend/server.js"
+        },
+        {
+          "source": "/(.*)",
+          "destination": "/frontend/$1"
+        }
+      ],
+       " headers": [
     {
       "source": "/api/(.*)",
       "headers": [
@@ -34,6 +29,5 @@
     }
   ]
 }
-  
 
-
+      
