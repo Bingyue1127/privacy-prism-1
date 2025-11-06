@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+# package-lock.json  # 保留此文件以锁定依赖版本（推荐）
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vercel
+.vercel
+
+# Testing
+coverage/
+
+# Build outputs
+dist/
+build/
