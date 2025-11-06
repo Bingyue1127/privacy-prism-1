@@ -4,20 +4,17 @@
 
 // API Configuration
 // ========================================
-// API Configuration
-// ========================================
 const API_BASE_URL = (() => {
   const host = window.location.hostname;
 
   if (host === 'localhost' || host === '127.0.0.1') {
     // Local development: backend runs on port 5000
-    return 'http://localhost:5000';
+    return 'http://localhost:5000' ;
   }
 
   // Deployed environment (e.g. Vercel) – same domain as frontend
   return window.location.origin;
 })();
-
 
 // State management
 const state = {
@@ -149,7 +146,7 @@ async function handleAnalyze() {
 
   if (state.currentType === 'url' && !isValidURL(input)) {
     console.log('ERROR: Invalid URL');
-    showError('Please enter a valid URL (must start with http:// or https://)');
+    showError('Please enter a valid URL (must start with http:// or https://)') ;
     return;
   }
 
@@ -331,7 +328,6 @@ async function startParallelAnalysis(input, type) {
   }
 }
 
-// ========================================
 async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2) {
   console.log(`=== ${dimension.toUpperCase()} ANALYSIS ===`);
   console.log(`Input length: ${input.length}`);
@@ -344,7 +340,6 @@ async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2)
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 25000);
 
-      // ✅ Correct endpoint: app.post('/api/analyze/:dimension')
       const url = `${API_BASE_URL}/api/analyze/${encodeURIComponent(dimension)}`;
       const body = JSON.stringify({ input, type });
 
@@ -352,25 +347,23 @@ async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2)
       console.log(`Request body length: ${body.length}`);
 
       const response = await fetch(`${API_BASE_URL}/api/analyze/${dimension}`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ input, type })
-});
-
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ input, type })
+      });
 
       clearTimeout(timeoutId);
-      console.log(`${dimension} response status: ${response.status}`);
+      console.log(`${dimension} response status:${response.status}`);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`HTTP Error for ${dimension}: ${response.status} ${errorText}`);
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        console.error(`HTTP Error for ${dimension}:${response.status} ${errorText}`);
+        throw new Error(`HTTP ${response.status}:${response.statusText}`);
       }
 
       const result = await response.json();
-      console.log(`${dimension} analysis completed — content length: ${result.content?.length || 0}`);
+      console.log(`${dimension} analysis completed — content length:${result.content?.length || 0}`);
 
-      //  Update progress
       state.completedDimensions++;
       updateAnalysisProgress();
       showProgress(` Completed ${dimension} analysis (${state.completedDimensions}/${state.totalDimensions})`);
@@ -378,14 +371,14 @@ async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2)
       return result;
 
     } catch (error) {
-      console.error(`Attempt ${attempt} failed for ${dimension}:`, error);
+      console.error(`Attempt ${attempt} failed for${dimension}:`, error);
 
       if (attempt === maxRetries) {
-        console.error(` ${dimension} failed after ${maxRetries} attempts.`);
+        console.error(` ${dimension} failed after${maxRetries} attempts.`);
         throw error;
       }
 
-      console.log(`Retrying ${dimension} in ${attempt * 1000}ms...`);
+      console.log(`Retrying ${dimension} in${attempt * 1000}ms...`);
       await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
     }
   }
@@ -587,19 +580,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elements.navLinks.length > 0) {
     initializeNavigation();
   }
+  
   // === Risk Slider Navigation ===
-const riskSlider = document.querySelector('.risk-slider');
-const prevBtn = document.querySelector('.risk-slider-btn.prev');
-const nextBtn = document.querySelector('.risk-slider-btn.next');
+  const riskSlider = document.querySelector('.risk-slider');
+  const prevBtn = document.querySelector('.risk-slider-btn.prev');
+  const nextBtn = document.querySelector('.risk-slider-btn.next');
 
-if (riskSlider && prevBtn && nextBtn) {
-  prevBtn.addEventListener('click', () => {
-    riskSlider.scrollBy({ left: -350, behavior: 'smooth' });
-  });
-  nextBtn.addEventListener('click', () => {
-    riskSlider.scrollBy({ left: 350, behavior: 'smooth' });
-  });
-}
-
-
+  if (riskSlider && prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      riskSlider.scrollBy({ left: -350, behavior: 'smooth' });
+    });
+    nextBtn.addEventListener('click', () => {
+      riskSlider.scrollBy({ left: 350, behavior: 'smooth' });
+    });
+  }
 });

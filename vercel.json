@@ -1,28 +1,15 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     }
   ],
-  "headers": [
+  "rewrites": [
     {
       "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
+      "destination": "/server.js"
     }
   ]
 }
