@@ -1,15 +1,12 @@
+{
+  "version": 2,
+  "rewrites": [
     {
-      "rewrites": [
-        {
-          "source": "/api/(.*)",
-          "destination": "/backend/server.js"
-        },
-        {
-          "source": "/(.*)",
-          "destination": "/frontend/$1"
-        }
-      ],
-       " headers": [
+      "source": "/(.*)",
+      "destination": "/frontend/$1"
+    }
+  ],
+  "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
@@ -29,5 +26,3 @@
     }
   ]
 }
-
-      
