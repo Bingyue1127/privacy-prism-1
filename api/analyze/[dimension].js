@@ -1,40 +1,54 @@
+// api/analyze/[dimension].js
+
 export default async function handler(req, res) {
   const { dimension } = req.query;
 
-  // ✅ Only allow POST requests
+  // Only accept POST requests
   if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method Not Allowed",
-      message: `Use POST instead of ${req.method}`,
-    });
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   try {
     const { input, type } = req.body;
 
-    // ✅ Basic validation
     if (!input) {
-      return res.status(400).json({ error: "Missing input in request body" });
+      return res.status(400).json({ error: "Missing 'input' field in request body." });
     }
 
-    // ✅ Here you can add your real analysis logic later
-    const analysisResult = {
-      dimension,
-      type,
-      summary: `Analysis complete for ${dimension}`,
-      example: input.slice(0, 100), // preview of user input
-    };
+    // Define dummy or real analysis logic for each dimension
+    let result;
+    switch (dimension) {
+      case "platforms":
+        result = { score: 0.8, summary: "Platforms are moderately privacy-conscious." };
+        break;
+      case "audience":
+        result = { score: 0.6, summary: "Your audience exposure level is medium." };
+        break;
+      case "exposure":
+        result = { score: 0.7, summary: "You have a fair amount of data exposure risk." };
+        break;
+      case "manipulability":
+        result = { score: 0.5, summary: "Moderate potential for data manipulation." };
+        break;
+      case "inference":
+        result = { score: 0.4, summary: "Some personal inferences can be drawn from your data." };
+        break;
+      case "amplification":
+        result = { score: 0.9, summary: "High potential for data amplification across networks." };
+        break;
+      default:
+        return res.status(404).json({ error: `Unknown dimension: ${dimension}` });
+    }
 
-    // ✅ Send success response
-    return res.status(200).json({
+    // Return analysis results
+    res.status(200).json({
       success: true,
-      result: analysisResult,
+      dimension,
+      inputType: type || "text",
+      analysis: result,
     });
   } catch (error) {
-    console.error("Error analyzing dimension:", error);
-    return res.status(500).json({
-      error: "Internal Server Error",
-      details: error.message,
-    });
+    console.error("Error analyzing data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
