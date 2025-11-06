@@ -351,12 +351,12 @@ async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2)
       console.log(`Calling endpoint: ${url}`);
       console.log(`Request body length: ${body.length}`);
 
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-        signal: controller.signal
-      });
+      const response = await fetch(`${API_BASE_URL}/api/analyze/${dimension}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ input: userInput, type: "text" })
+});
+
 
       clearTimeout(timeoutId);
       console.log(`${dimension} response status: ${response.status}`);
