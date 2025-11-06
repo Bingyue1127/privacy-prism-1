@@ -10,6 +10,14 @@
     {
       "source": "/api/(.*)",
       "destination": "/server.js"
+    },
+    {
+          "source": "/(.*)",
+         "destination": "frontend/$1"
     }
+
+
+
+
   ]
 }
