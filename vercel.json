@@ -1,6 +1,18 @@
 {
+  "rewrites": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/server.js"
+    }
+  ],
   "routes": [
-    { "source": "/api/(.*)", "destination": "/backend/server.js" },
-    { "source": "/(.*)", "destination": "/frontend/$1" }
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/index.html"
+    }
   ]
 }

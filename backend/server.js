@@ -7,9 +7,15 @@ require('dotenv').config();
 
 const app = express();
 
-// ========================================
-app.use(cors()); 
-// Other middleware
+// Enable CORS for all routes
+app.use(cors({
+  origin: ['https://privacy-prism-1.vercel.app', 'http://localhost:3000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Handle preflight requests
+app.options('*', cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
