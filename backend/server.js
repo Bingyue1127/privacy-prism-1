@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, '../frontend')));
 console.log("Privacy Prism Serverless Function Loaded");
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
+app.post('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
     model: 'gpt-4o-mini',
