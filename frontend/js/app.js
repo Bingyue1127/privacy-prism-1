@@ -354,7 +354,7 @@ async function analyzeDimensionWithRetry(dimension, input, type, maxRetries = 2)
       const response = await fetch(`${API_BASE_URL}/api/analyze/${dimension}`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ input: userInput, type: "text" })
+  body: JSON.stringify({ input, type })
 });
 
 
