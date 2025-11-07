@@ -3,13 +3,13 @@
   "functions": {
     "backend/server.js": {
       "runtime": "@vercel/node@3.0.0",
-      "includeFiles": "backend/**"
+      "includeFiles": "api/**"
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/backend/server.js"
+      "destination": "/api/server.js"
     },
     {
       "source": "/(.*)",
