@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/analyze/[dimension].js": {
+      "runtime": "nodejs22.x",
+      "includeFiles": "backend/**"
+    },
+    
   "version": 2,
   "rewrites": [
     {
@@ -25,4 +31,5 @@
       ]
     }
   ]
+}
 }
