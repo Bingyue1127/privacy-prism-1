@@ -1,15 +1,15 @@
 {
   "version": 2,
   "functions": {
-    "api/index.js": {
+    "api/server.js": {
       "runtime": "@vercel/node@3.0.0",
-      "includeFiles": "backend/**"
+      "includeFiles": "api/**"
     }
   },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index.js"
+      "destination": "/api/server.js"
     },
     {
       "source": "/(.*)",
