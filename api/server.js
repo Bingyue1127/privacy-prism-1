@@ -36,13 +36,16 @@ app.post('/api/health', (req, res) => {
 // ========================================
 // Your main API route
 // ========================================
+  app.all('/api/analyze/:dimension', async (req, res) => {
+    try{
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-app.post('/api/analyze/:dimension', async (req, res) => {
-  try {
-    const { dimension } = req.params;
-    const { input, type } = req.body;
+
+  const { dimension } = req.params;
+  const { input, type } = req.body;
+
+
 
     console.log(`[${dimension}] Analysis request received`);
 
