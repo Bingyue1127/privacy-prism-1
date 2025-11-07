@@ -2,9 +2,9 @@
   "name": "privacy-prism",
   "version": "1.0.0",
   "description": "AI-powered privacy risk analysis tool",
-  "main": "backend/server.js",
+  "main": "api/server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node api/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
